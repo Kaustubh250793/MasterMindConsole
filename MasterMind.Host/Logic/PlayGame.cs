@@ -4,12 +4,12 @@ using System.Text;
 namespace MasterMind.Host.Logic
 {
     /// <summary>
-    /// 
+    /// This class generates the message to be displayed on basis of response from validator.
     /// </summary>
     public class PlayGame
     {
         private string _code;
-        private Random _randomNumberGenerator = new Random();
+        private static Random _randomNumberGenerator = new Random();
 
         private GuessValidator _guessValidator;
         private int _attempts;
@@ -19,21 +19,17 @@ namespace MasterMind.Host.Logic
         private const int _maxRandomNoValue = 6;
 
         /// <summary>
-        /// 
+        /// Is game finished
         /// </summary>
         public bool IsFinished { get; internal set; }
 
         /// <summary>
-        /// 
+        /// .ctor
         /// </summary>
-        public PlayGame()
-        {
-            _code = GenerateRandomCode(_codeLength);
-            _guessValidator = new GuessValidator(_code);
-        }
+        public PlayGame() : this(GenerateRandomCode()) { }
 
         /// <summary>
-        /// 
+        /// .ctor
         /// </summary>
         /// <param name="codeMakerGuess"></param>
         public PlayGame(string codeMakerGuess)
@@ -43,7 +39,7 @@ namespace MasterMind.Host.Logic
         }
 
         /// <summary>
-        /// 
+        /// Takes the guess as input and return the output response string
         /// </summary>
         /// <param name="guess"></param>
         public string GuessInput(string guess)
@@ -64,10 +60,10 @@ namespace MasterMind.Host.Logic
             return $"{response}\t Remaining guesses: {_maxNoOfguess - _attempts}\n";
         }
 
-        private string GenerateRandomCode(int length)
+        private static string GenerateRandomCode()
         {
-            var stringBuilder = new StringBuilder(length);
-            for (var i = 0; i < length; i++)
+            var stringBuilder = new StringBuilder(_codeLength);
+            for (var i = 0; i < _codeLength; i++)
             {
                 stringBuilder.Append(_randomNumberGenerator.Next(_minRandomNoValue, _maxRandomNoValue));
             }

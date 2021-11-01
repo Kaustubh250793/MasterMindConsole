@@ -21,10 +21,10 @@ In case of nuget error- Check the NuGet package manager for updates to the insta
 
 2.The code can be demonstrated either by using unit tests or command line.
 
-8.unit test is with the help of nunit.
+3.unit test is with the help of nunit.
 
-9.Probable exceptions are handled
+4.Probable exceptions are handled
 
-10.Assignment is completed with production quality source code in a layered approach.
+5.Assignment is completed with production quality source code in a layered approach.
 
-11.Source code is committed to github under a public handle with incremental checkIn
+6.Source code is committed to github under a public handle with incremental checkIn

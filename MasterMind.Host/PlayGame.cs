@@ -9,9 +9,14 @@ namespace MasterMind.Host
     public class PlayGame
     {
         private string _code;
+        private Random _randomNumberGenerator = new Random();
+
         private GuessValidator _guessValidator;
 
-        private Random _randomNumberGenerator = new Random();
+        private const int _maxNoOfguess = 10;
+        private const int _codeLength = 4;
+        private const int _minRandomNoValue = 1;
+        private const int _maxRandomNoValue = 6;
 
         /// <summary>
         /// 
@@ -23,7 +28,7 @@ namespace MasterMind.Host
         /// </summary>
         public PlayGame()
         {
-            _code = GenerateRandomCode(4);
+            _code = GenerateRandomCode(_codeLength);
             _guessValidator = new GuessValidator(_code);
         }
 
@@ -44,25 +49,18 @@ namespace MasterMind.Host
         {
             var response = _guessValidator.Validate(guess);
 
-            if (response.NumberOfAttempts == 10)
+            if (response.NumberOfAttempts == _maxNoOfguess)
             {
-                Console.WriteLine($"Sorry, you lose. Better luck next time!!");
-
                 IsFinished = true;
+                return $"Sorry, you lose. Better luck next time!!";
             }
             if (response.IndicativeString == "++++")
             {
-                Console.Write("\n");
-                Console.WriteLine($"Congratulations! You won the game in {response.NumberOfAttempts} attempts.");
-
                 IsFinished = true;
-            }
-            else
-            {
-                Console.WriteLine($"{response.IndicativeString}\n");
+                return $"Congratulations! You won the game in {response.NumberOfAttempts} attempts.";
             }
 
-            return string.Empty;
+            return $"{response.IndicativeString}\n Remaining guesses: {_maxNoOfguess - response.NumberOfAttempts}";
         }
 
         private string GenerateRandomCode(int length)
@@ -70,7 +68,7 @@ namespace MasterMind.Host
             var stringBuilder = new StringBuilder(length);
             for (int i = 0; i < length; i++)
             {
-                stringBuilder.Append(_randomNumberGenerator.Next(1, 6));
+                stringBuilder.Append(_randomNumberGenerator.Next(_minRandomNoValue, _maxRandomNoValue));
             }
 
             return stringBuilder.ToString();

@@ -26,30 +26,24 @@ namespace MasterMind.Host
         /// <returns></returns>
         public GuessResponse Validate(string guess)
         {
-            var sb = new StringBuilder();
+            var builder = new StringBuilder(guess.Length);
+            var str = ' ';
 
-            for (int i = 0; i < _code.Length; i++)
+            for (int index = 0; index < _code.Length; index++)
             {
-                if (!_code.Contains(guess[i].ToString()))
+                var guessAtIndex = guess[index];
+
+                if (_code.Contains(guessAtIndex.ToString()))
                 {
-                    sb.Append(' ');
+                    str += _code[index] == guessAtIndex ? '+' : '-';
                 }
-                else
-                {
-                    if (_code[i] == guess[i])
-                    {
-                        sb.Append('+');
-                    }
-                    else
-                    {
-                        sb.Append('-');
-                    }
-                }
+
+                builder.Append(str);
             }
 
             return new GuessResponse()
             {
-                IndicativeString = sb.ToString(),
+                IndicativeString = builder.ToString(),
                 NumberOfAttempts = ++_attempts
             };
         }

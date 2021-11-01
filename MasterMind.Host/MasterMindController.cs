@@ -24,9 +24,11 @@ namespace MasterMind.Host
 
             while (!playGame.IsFinished)
             {
-                var guess = Console.ReadLine();               
+                var guess = Console.ReadLine();
 
-                playGame.GuessInput(guess);
+                var output = playGame.GuessInput(guess);
+
+                Console.WriteLine($"{output}");
             }
         }
     }

@@ -43,10 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GuessResponse.cs" />
-    <Compile Include="GuessValidator.cs" />
+    <Compile Include="Models\GuessResponse.cs" />
+    <Compile Include="Logic\GuessValidator.cs" />
     <Compile Include="MasterMindController.cs" />
-    <Compile Include="PlayGame.cs" />
+    <Compile Include="Logic\PlayGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

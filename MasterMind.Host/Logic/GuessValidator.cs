@@ -1,9 +1,11 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using MasterMind.Host.Models;
 
-namespace MasterMind.Host
+namespace MasterMind.Host.Logic
 {
     /// <summary>
-    /// 
+    /// Class to analyze and validate the input guess.
     /// </summary>
     public class GuessValidator
     {
@@ -11,7 +13,7 @@ namespace MasterMind.Host
         private int _attempts = 0;
 
         /// <summary>
-        /// 
+        /// .ctor
         /// </summary>
         /// <param name="code"></param>
         public GuessValidator(string code)
@@ -27,18 +29,26 @@ namespace MasterMind.Host
         public GuessResponse Validate(string guess)
         {
             var builder = new StringBuilder(guess.Length);
-            var str = ' ';
 
-            for (int index = 0; index < _code.Length; index++)
+            try
             {
-                var guessAtIndex = guess[index];
-
-                if (_code.Contains(guessAtIndex.ToString()))
+                for (var index = 0; index < guess.Length; index++)
                 {
-                    str += _code[index] == guessAtIndex ? '+' : '-';
-                }
+                    var guessSymbol = ' ';
+                    var guessAtIndex = guess[index];
 
-                builder.Append(str);
+                    if (_code.Contains(guessAtIndex.ToString()))
+                    {
+                        guessSymbol = _code[index] == guessAtIndex ? '+' : '-';
+                    }
+
+                    builder.Append(guessSymbol);
+                }
+            }
+            catch (Exception)
+            {
+                builder.Clear();
+                builder.Append("Invalid input");
             }
 
             return new GuessResponse()

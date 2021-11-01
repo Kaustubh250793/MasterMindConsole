@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace MasterMind.Host
+namespace MasterMind.Host.Logic
 {
     /// <summary>
     /// 
@@ -39,6 +39,7 @@ namespace MasterMind.Host
         public PlayGame(string codeMakerGuess)
         {
             _code = codeMakerGuess;
+            _guessValidator = new GuessValidator(_code);
         }
 
         /// <summary>
@@ -60,13 +61,13 @@ namespace MasterMind.Host
                 return $"Congratulations! You won the game in {response.NumberOfAttempts} attempts.";
             }
 
-            return $"{response.IndicativeString}\n Remaining guesses: {_maxNoOfguess - response.NumberOfAttempts}";
+            return $"{response.IndicativeString}\t Remaining guesses: {_maxNoOfguess - response.NumberOfAttempts}\n";
         }
 
         private string GenerateRandomCode(int length)
         {
             var stringBuilder = new StringBuilder(length);
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 stringBuilder.Append(_randomNumberGenerator.Next(_minRandomNoValue, _maxRandomNoValue));
             }

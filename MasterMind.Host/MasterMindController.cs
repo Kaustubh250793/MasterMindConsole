@@ -1,10 +1,11 @@
 ﻿using System;
+using MasterMind.Host.Logic;
 
 namespace MasterMind.Host
 {
     public class MasterMindController
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             Console.OutputEncoding = System.Text.Encoding.GetEncoding(1252);
 

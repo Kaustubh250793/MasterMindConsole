@@ -1,4 +1,4 @@
-﻿namespace MasterMind.Host
+﻿namespace MasterMind.Host.Models
 {
     /// <summary>
     /// 

@@ -54,7 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTests\MasterMindControllerTests.cs" />
+    <Compile Include="UnitTests\PlayGameTests.cs" />
+    <Compile Include="UnitTests\GuessValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

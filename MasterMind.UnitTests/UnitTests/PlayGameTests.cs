@@ -3,17 +3,11 @@ using NUnit.Framework;
 
 namespace MasterMind.UnitTests.UnitTests
 {
-    public class MasterMindControllerTests
+    public class PlayGameTests
     {
-        [SetUp]
-        public void SetUp()
-        {
-
-        }
-
         //  After 10 incorrect guesses, the player loses
         [Test]
-        public void GuessCounter_EndsGameAfterTenIncorrectGuesses()
+        public void GuessCounter_EndsGame_AfterTenIncorrectGuesses()
         {
             // Arrange
             var game = new PlayGame("0000");
@@ -41,7 +35,7 @@ namespace MasterMind.UnitTests.UnitTests
             var actual = game.GuessInput("1234");
 
             // Assert
-            Assert.That(actual.StartsWith("Congratulations! You won"));
+            Assert.That(actual.StartsWith("\nCongratulations! You won"));
             Assert.That(game.IsFinished);
         }
 

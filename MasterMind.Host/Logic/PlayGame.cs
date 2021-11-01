@@ -12,7 +12,7 @@ namespace MasterMind.Host.Logic
         private Random _randomNumberGenerator = new Random();
 
         private GuessValidator _guessValidator;
-
+        private int _attempts;
         private const int _maxNoOfguess = 10;
         private const int _codeLength = 4;
         private const int _minRandomNoValue = 1;
@@ -50,18 +50,18 @@ namespace MasterMind.Host.Logic
         {
             var response = _guessValidator.Validate(guess);
 
-            if (response.NumberOfAttempts == _maxNoOfguess)
+            if (++_attempts == _maxNoOfguess)
             {
                 IsFinished = true;
                 return $"Sorry, you lose. Better luck next time!!";
             }
-            if (response.IndicativeString == "++++")
+            if (response == "++++")
             {
                 IsFinished = true;
-                return $"Congratulations! You won the game in {response.NumberOfAttempts} attempts.";
+                return $"\nCongratulations! You won the game in {_attempts} attempts.";
             }
 
-            return $"{response.IndicativeString}\t Remaining guesses: {_maxNoOfguess - response.NumberOfAttempts}\n";
+            return $"{response}\t Remaining guesses: {_maxNoOfguess - _attempts}\n";
         }
 
         private string GenerateRandomCode(int length)

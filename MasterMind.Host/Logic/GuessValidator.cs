@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using MasterMind.Host.Models;
 
 namespace MasterMind.Host.Logic
 {
@@ -10,7 +9,6 @@ namespace MasterMind.Host.Logic
     public class GuessValidator
     {
         private readonly string _code;
-        private int _attempts = 0;
 
         /// <summary>
         /// .ctor
@@ -26,7 +24,7 @@ namespace MasterMind.Host.Logic
         /// </summary>
         /// <param name="guess"></param>
         /// <returns></returns>
-        public GuessResponse Validate(string guess)
+        public string Validate(string guess)
         {
             var builder = new StringBuilder(guess.Length);
 
@@ -51,11 +49,7 @@ namespace MasterMind.Host.Logic
                 builder.Append("Invalid input");
             }
 
-            return new GuessResponse()
-            {
-                IndicativeString = builder.ToString(),
-                NumberOfAttempts = ++_attempts
-            };
+            return builder.ToString();
         }
     }
 }

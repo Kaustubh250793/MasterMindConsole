@@ -31,6 +31,8 @@ namespace MasterMind.Host
 
                 Console.WriteLine($"{output}");
             }
+
+            Console.ReadKey();
         }
     }
 }

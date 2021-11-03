@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MasterMind.Host.Logic
@@ -57,7 +59,9 @@ namespace MasterMind.Host.Logic
                 return $"\nCongratulations! You won the game in {_attempts} attempts.";
             }
 
-            return $"{response}\t Remaining guesses: {_maxNoOfguess - _attempts}\n";
+            var s = new String(response.OrderByDescending(x => x).ToArray());
+
+            return $"{s}\t Remaining guesses: {_maxNoOfguess - _attempts}\n";
         }
 
         private static string GenerateRandomCode()
@@ -65,6 +69,14 @@ namespace MasterMind.Host.Logic
             var stringBuilder = new StringBuilder(_codeLength);
             for (var i = 0; i < _codeLength; i++)
             {
+                var str = _randomNumberGenerator.Next(_minRandomNoValue, _maxRandomNoValue);
+
+                HashSet<int> a = new HashSet<int>();
+
+                while (a.Contains(str))
+                {
+                    str = _randomNumberGenerator.Next(_minRandomNoValue, _maxRandomNoValue);
+                }
                 stringBuilder.Append(_randomNumberGenerator.Next(_minRandomNoValue, _maxRandomNoValue));
             }
 
